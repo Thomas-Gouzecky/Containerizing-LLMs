@@ -4,9 +4,11 @@ services:
         ports:
             - "3000:8080"
         environment:
-            - OPENAI_API_BASE_URL=http://model-runner.docker.internal/engines/v1
-            - WEBUI_AUTH=false
-            - WEBUI_NAME=WebUI with Docker Model Runner
+            # /v1 - OpenAI API base URL, /v1 is required for OpenAI API compatibility for llmman
+            - OPENAI_API_BASE_URL=http://host.docker.internal:17434/v1
+            - OPENAI_API_KEY=not-needed
+            - WEBUI_AUTH="false"
+            - WEBUI_NAME=WebUI with llmman
         volumes:
             - open-webui:/app/backend/data
 
