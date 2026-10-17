@@ -1,0 +1,24 @@
+services:
+    llmman:
+        image: ai/llmman:server-cuda
+        container_name: llmman
+        environment:
+            - LLMMAN_AUTH=off
+        restart: unless-stopped
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities: [gpu]
+        volumes:
+            - llmman-data:/root/.local/share/llmman
+        networks:
+            - ai-chat-container-network
+        entrypoint: ["llmman", "serve"]
+
+volumes:
+    llmman-data:
+networks:
+    ai-chat-container-network:

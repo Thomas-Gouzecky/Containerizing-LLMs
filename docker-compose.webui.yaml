@@ -1,0 +1,16 @@
+services:
+    open-webui:
+        image: ghcr.io/open-webui/open-webui:main
+        ports:
+            - "3000:8080"
+        env_file:
+            - .env.webui
+        volumes:
+            - open-webui:/app/backend/data
+        networks:
+            - ai-chat-container-network
+
+volumes:
+    open-webui:
+networks:
+    ai-chat-container-network:

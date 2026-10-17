@@ -1,35 +1,6 @@
-services:
-    open-webui:
-        image: ghcr.io/open-webui/open-webui:main
-        ports:
-            - "3000:8080"
-        environment:
-            # /v1 - OpenAI API base URL, /v1 is required for OpenAI API compatibility for llmman
-            - OPENAI_API_BASE_URL=http://llmman:17434/v1
-            - OPENAI_API_KEY=not-needed
-            - WEBUI_AUTH="false"
-            - WEBUI_NAME=WebUI with llmman
-        volumes:
-            - open-webui:/app/backend/data
-        depends_on:
-            - llmman
-    llmman:
-        image: ai/llmman:server-cuda
-        container_name: llmman
-        environment:
-            - LLMMAN_AUTH=off
-        restart: unless-stopped
-        deploy:
-            resources:
-                reservations:
-                    devices:
-                        - driver: nvidia
-                          count: all
-                          capabilities: [gpu]
-        volumes:
-            - llmman-data:/root/.local/share/llmman
-        entrypoint: ["llmman", "serve"]
+include:
+    - docker-compose.webui.yaml
+    - docker-compose.llmman.yaml
 
-volumes:
-    open-webui:
-    llmman-data:
+networks:
+    ai-chat-container-network:
