@@ -36,3 +36,9 @@ This project is to help learn how to run and use local LLMs for applications. Th
 ```bash
 llmman pull hf.co/ggml-org/Qwen3.5-0.8B-GGUF:Q4_0
 ```
+
+**Qwen3.5-4B-Base-GGUF:Q4_K_M** This is a quantized version of the Qwen3.5-4B model, optimized for running on local hardware.
+
+```bash
+llmman pull hf.co/mradermacher/Qwen3.5-4B-Base-GGUF:Q4_K_M
+```
